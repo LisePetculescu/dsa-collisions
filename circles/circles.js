@@ -6,6 +6,8 @@ function start() {
   document.addEventListener("keydown", keyEvent);
   document.addEventListener("keyup", keyEvent);
 
+  document.querySelector("#show-geometry").addEventListener("change", changeShowGeometry);
+
   requestAnimationFrame(tick);
 }
 
@@ -68,6 +70,11 @@ function tick() {
   displayPlayerInfo();
   displayObjectInfo();
   displayCollisionInfo();
+
+  // - update geometry
+  if (showGeometry) {
+    displayGeometry();
+  }
 }
 
 function movePlayer() {
@@ -85,6 +92,8 @@ function movePlayer() {
 }
 
 /* MODEL */
+
+let showGeometry = true;
 
 const player = {
   x: 0,
@@ -153,4 +162,44 @@ function displayCollisionInfo() {
     collisionInfo.textContent = "No collision ...";
     collisionInfo.classList.remove("collision");
   }
+}
+
+/* GEOMETRY info section */
+
+function changeShowGeometry(event) {
+  showGeometry = event.target.checked;
+  document.querySelector("#geometry").classList.toggle("hidden", !showGeometry);
+}
+
+function displayGeometry() {
+  const distanceLine = document.querySelector("svg#geometry #distance");
+  const deltaXLine = document.querySelector("svg#geometry #deltaX");
+  const deltaYLine = document.querySelector("svg#geometry #deltaY");
+  const tinyRect = document.querySelector("svg#geometry #tinyRect");
+
+  function setXY1(element, pos) {
+    element.x1.baseVal.value = pos.x;
+    element.y1.baseVal.value = pos.y;
+  }
+
+  function setXY2(element, pos) {
+    element.x2.baseVal.value = pos.x;
+    element.y2.baseVal.value = pos.y;
+  }
+
+  // line from player to object
+  setXY1(distanceLine, player);
+  setXY2(distanceLine, object);
+
+  // horisontal line from player to "meeting-spot"
+  setXY1(deltaXLine, player);
+  setXY2(deltaXLine, { x: object.x, y: player.y });
+
+  // vertical line from object to "meeting-spot"
+  setXY1(deltaYLine, object);
+  setXY2(deltaYLine, { x: object.x, y: player.y });
+
+  // tiny rectangle to indicate the "right triangle"
+  tinyRect.x.baseVal.value = object.x - (player.x < object.x ? 10 : 0);
+  tinyRect.y.baseVal.value = player.y - (player.y > object.y ? 10 : 0);
 }

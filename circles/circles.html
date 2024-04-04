@@ -13,6 +13,12 @@
       <div id="gamefield">
         <div id="player"></div>
         <div id="object"></div>
+        <svg id="geometry" class="hidden">
+          <line id="distance" x1="150" y1="100" x2="300" y2="200" stroke="yellow" stroke-width="2"></line>
+          <line id="deltaX" x1="150" y1="100" x2="300" y2="100" stroke="white"></line>
+          <line id="deltaY" x1="150" y1="100" x2="300" y2="100" stroke="white"></line>
+          <rect id="tinyRect" x1="150" y1="100" width="10" height="10" stroke="white" fill="transparent"> </rect>
+        </svg>
       </div>
       <div id="info">
         <h2>Player</h2>
@@ -31,6 +37,8 @@
 
         <h2>Collision?</h2>
         <p id="collision-status">No collision ...</p>
+        <hr>
+        <label><input type="checkbox" name="" id="show-geometry">Show geometry</label>
       </div>
     </main>
 
