@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Circles - collision detection</title>
+    <link rel="stylesheet" href="circles.css" />
+  </head>
+  <body>
+    <h1>Circles</h1>
+    <h2>collision detection</h2>
+    <main>
+      <div id="gamefield">
+        <div id="player"></div>
+        <div id="object"></div>
+      </div>
+      <div id="info">
+        <h2>Player</h2>
+        <p>
+          x: <span id="player-x">000</span>, y: <span id="player-y">000</span> -
+          r: <span id="player-r">000</span>
+        </p>
+
+        <h2>Object</h2>
+        <p>
+          x: <span id="object-x">000</span>, y: <span id="object-y">000</span> -
+          r: <span id="object-r">000</span>
+        </p>
+
+        <hr />
+
+        <h2>Collision?</h2>
+        <p id="collision-status">No collision ...</p>
+      </div>
+    </main>
+
+    <script src="circles.js"></script>
+  </body>
+</html>
