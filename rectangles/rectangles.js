@@ -6,6 +6,8 @@ function start() {
   document.addEventListener("keydown", keyEvent);
   document.addEventListener("keyup", keyEvent);
 
+  registerValueChanges();
+  
   requestAnimationFrame(tick);
 }
 
@@ -149,4 +151,27 @@ function displayObjectInfo() {
   document.querySelector("#object-y").value = object.y;
   document.querySelector("#object-w").value = object.w;
   document.querySelector("#object-h").value = object.h;
+}
+
+function registerValueChanges() {
+  document.querySelectorAll("#info input").forEach((input) => {
+    input.addEventListener("input", (event) => {
+      const id = event.target.id;
+      // find the object to manipulate
+      const objectName = event.target.id.split("-")[0];
+      // and the property
+      const propertyName = event.target.id.split("-")[1];
+      // and the value
+      const value = Number(event.target.value);
+      // set the value
+      switch (objectName) {
+        case "player":
+          player[propertyName] = value;
+          break;
+        case "object":
+          object[propertyName] = value;
+          break;
+      }
+    });
+  });
 }
