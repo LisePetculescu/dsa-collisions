@@ -7,6 +7,7 @@ function start() {
   document.addEventListener("keyup", keyEvent);
 
   document.querySelector("#show-geometry").addEventListener("change", changeShowGeometry);
+  document.querySelector("#geometry-settings").addEventListener("change", changeShowGeometryDetail);
   
   registerValueChanges();
   
@@ -183,6 +184,27 @@ function registerValueChanges() {
 function changeShowGeometry(event) {
   showGeometry = event.target.checked;
   document.querySelector("#geometry").classList.toggle("hidden", !showGeometry);
+  document.querySelector("fieldset.geometry").disabled = !showGeometry;
+}
+
+function changeShowGeometryDetail(event) {
+  const detail = event.target.id.split("-")[1];
+  const value = event.target.checked;
+  
+  if(detail === "lines") {
+    document.querySelectorAll("#geometry g.lines").forEach((line) => {
+      line.classList.toggle("hidden", !value);
+    });
+  }
+  if(detail === "overlaps") {
+    document.querySelectorAll("#geometry g.overlaps").forEach((line) => {
+      line.classList.toggle("hidden", !value);
+    });
+    document.querySelector("fieldset.overlaps").disabled = !value;
+  }
+  if(["left", "right", "top", "bottom"].includes(detail)) {
+    document.querySelector(`#geometry g.overlaps #overlapObject${detail.charAt(0).toUpperCase() + detail.slice(1)}`).classList.toggle("hidden", !value);
+  }
 }
 
 function displayGeometry() {

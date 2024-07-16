@@ -28,6 +28,31 @@ main {
   margin-block: 1.5em;
   border-color: #4b4;
 }
+#info fieldset.lines {
+  border-color: transparent;
+  margin-top: .4em;
+}
+
+#info fieldset.overlaps {
+  display: flex;
+  flex-direction: column;
+}
+
+#info fieldset.overlaps>label {
+  width: 10em;
+  display: grid;
+  grid-template-columns: 1em max-content 1fr 1fr;
+  align-items: center;
+}
+
+#info fieldset.overlaps>label span {  
+  text-align: center;
+}
+
+#info fieldset.overlaps input[type="color"] {
+  width: 2em;
+  height: 2em;
+}
 
 input[type="number"] {
   background-color: #5b5b5b;
