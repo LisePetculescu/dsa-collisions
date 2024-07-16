@@ -15,7 +15,38 @@
       <div id="player"></div>
       <div id="object"></div>
       <svg id="geometry" class="hidden">
- 
+        <pattern id="diagonalTop" width="10" height="10" patternTransform="rotate(75 0 0)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="10" style="stroke:#f94; stroke-width:1" />
+        </pattern>
+        <pattern id="diagonalBottom" width="10" height="10" patternTransform="rotate(-75 0 0)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="10" style="stroke:rgb(118, 201, 54); stroke-width:1" />
+        </pattern>
+        <pattern id="diagonalLeft" width="10" height="10" patternTransform="rotate(25 0 0)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="10" style="stroke:rgb(68, 168, 255); stroke-width:1" />
+        </pattern>
+        <pattern id="diagonalRight" width="10" height="10" patternTransform="rotate(-25 0 0)" patternUnits="userSpaceOnUse">
+          <line x1="0" y1="0" x2="0" y2="10" style="stroke:rgb(255, 68, 211); stroke-width:1" />
+        </pattern>
+
+        <g class="object">
+          <line id="objectLeft" x1="150" y1="0" x2="150" y2="1000"></line>
+          <line id="objectRight" x1="150" y1="0" x2="150" y2="1000"></line>
+          <line id="objectTop" x1="150" y1="100" x2="300" y2="100"></line>
+          <line id="objectBottom" x1="150" y1="100" x2="300" y2="100"></line>
+        </g>
+        <g class="player">
+          <line id="playerLeft" x1="150" y1="0" x2="150" y2="1000"></line>
+          <line id="playerRight" x1="150" y1="0" x2="150" y2="1000"></line>
+          <line id="playerTop" x1="150" y1="100" x2="300" y2="100"></line>
+          <line id="playerBottom" x1="150" y1="100" x2="300" y2="100"></line>
+        </g>
+
+        <g class="overlaps">
+          <rect id="overlapObjectTop" x1="150" y1="100" width="150" height="100" stroke="transparent" fill="url(#diagonalTop)"> </rect>
+          <rect id="overlapObjectBottom" x1="150" y1="100" width="150" height="100" stroke="transparent" fill="url(#diagonalBottom)"> </rect>
+          <rect id="overlapObjectLeft" x1="150" y1="100" width="150" height="100" stroke="transparent" fill="url(#diagonalLeft)"> </rect>
+          <rect id="overlapObjectRight" x1="150" y1="100" width="150" height="100" stroke="transparent" fill="url(#diagonalRight)"> </rect>
+        </g>
       </svg>
     </div>
     <div id="info">

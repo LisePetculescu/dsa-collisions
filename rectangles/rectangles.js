@@ -6,6 +6,8 @@ function start() {
   document.addEventListener("keydown", keyEvent);
   document.addEventListener("keyup", keyEvent);
 
+  document.querySelector("#show-geometry").addEventListener("change", changeShowGeometry);
+  
   registerValueChanges();
   
   requestAnimationFrame(tick);
@@ -73,7 +75,7 @@ function tick() {
 
   // - update geometry
   if (showGeometry) {
-    // displayGeometry();
+    displayGeometry();
   }
 }
 
@@ -174,4 +176,81 @@ function registerValueChanges() {
       }
     });
   });
+}
+
+/* GEOMETRY info section */
+
+function changeShowGeometry(event) {
+  showGeometry = event.target.checked;
+  document.querySelector("#geometry").classList.toggle("hidden", !showGeometry);
+}
+
+function displayGeometry() {
+  const height = document.querySelector("#geometry").clientHeight;
+  const width = document.querySelector("#geometry").clientWidth;
+
+  const objectLeft = document.querySelector("svg#geometry #objectLeft");
+  const objectRight = document.querySelector("svg#geometry #objectRight");
+  const objectTop = document.querySelector("svg#geometry #objectTop");
+  const objectBottom = document.querySelector("svg#geometry #objectBottom");
+
+  const playerLeft = document.querySelector("svg#geometry #playerLeft");
+  const playerRight = document.querySelector("svg#geometry #playerRight");
+  const playerTop = document.querySelector("svg#geometry #playerTop");
+  const playerBottom = document.querySelector("svg#geometry #playerBottom");
+
+  const overlapObjectTop = document.querySelector("svg#geometry #overlapObjectTop");
+  const overlapObjectBottom = document.querySelector("svg#geometry #overlapObjectBottom");
+  const overlapObjectLeft = document.querySelector("svg#geometry #overlapObjectLeft");
+  const overlapObjectRight = document.querySelector("svg#geometry #overlapObjectRight");
+
+  function setLineX(line, position) {
+    line.x1.baseVal.value = position;
+    line.x2.baseVal.value = position;
+    line.y1.baseVal.value = 0;
+    line.y2.baseVal.value = height;
+  }
+
+  function setLineY(line, position) {
+    line.y1.baseVal.value = position;
+    line.y2.baseVal.value = position;
+    line.x1.baseVal.value = 0;
+    line.x2.baseVal.value = width;
+  }
+
+  function setRectX(rectangle, x, w) {
+    rectangle.y.baseVal.value = 0;
+    rectangle.height.baseVal.value = height;
+    rectangle.x.baseVal.value = x;
+    rectangle.width.baseVal.value = w;
+  }
+
+  function setRectY(rectangle, y, h) {
+    rectangle.x.baseVal.value = 0;
+    rectangle.width.baseVal.value = width;
+    rectangle.y.baseVal.value = y;
+    rectangle.height.baseVal.value = h;
+  }
+
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
+  // lines demarking the object
+  setLineX(objectLeft, object.x);
+  setLineX(objectRight, object.x + object.w);
+  setLineY(objectTop, object.y);
+  setLineY(objectBottom, object.y + object.h);
+
+  // lines demarking the player
+  setLineX(playerLeft, player.x);
+  setLineX(playerRight, player.x + player.w);
+  setLineY(playerTop, player.y);
+  setLineY(playerBottom, player.y + player.h);
+
+  // show rectangles for overlapping areas
+  setRectY(overlapObjectTop, object.y, clamp(player.y + player.h - object.y, 0, object.h));
+  setRectY(overlapObjectBottom, clamp(player.y, object.y, object.y + object.h), clamp(object.y + object.h - player.y, 0, object.h));
+  setRectX(overlapObjectLeft, object.x, clamp(player.x - object.x + player.w, 0, object.w));
+  setRectX(overlapObjectRight, clamp(player.x, object.x, object.x + object.w), clamp(object.x + object.w - player.x, 0, object.w));
 }
