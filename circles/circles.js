@@ -142,15 +142,15 @@ function displayObject() {
 /* INFO section */
 
 function displayPlayerInfo() {
-  document.querySelector("#player-x").textContent = player.x;
-  document.querySelector("#player-y").textContent = player.y;
-  document.querySelector("#player-r").textContent = player.r;
+  document.querySelector("#player-x").value = player.x;
+  document.querySelector("#player-y").value = player.y;
+  document.querySelector("#player-r").value = player.r;
 }
 
 function displayObjectInfo() {
-  document.querySelector("#object-x").textContent = object.x;
-  document.querySelector("#object-y").textContent = object.y;
-  document.querySelector("#object-r").textContent = object.r;
+  document.querySelector("#object-x").value = object.x;
+  document.querySelector("#object-y").value = object.y;
+  document.querySelector("#object-r").value = object.r;
 }
 
 function displayCollisionInfo() {

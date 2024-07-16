@@ -20,9 +20,21 @@ main {
   margin-block-start: .1em;
 }
 
+#info p {
+  display: flex;
+}
+
 #info hr {
   margin-block: 1.5em;
   border-color: #4b4;
+}
+
+input[type="number"] {
+  background-color: #5b5b5b;
+  color: #6e6;
+  font-family: inherit;
+  text-align: right;
+  width: 4em;
 }
 
 #gamefield {
