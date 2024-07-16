@@ -3,17 +3,53 @@ window.addEventListener("load", start);
 
 function start() {
   console.log("Javascript is running");
+  document.addEventListener("keydown", keyEvent);
+  document.addEventListener("keyup", keyEvent);
 
   requestAnimationFrame(tick);
 }
 
+function keyEvent(event) {
+  const control = controlMap[event.code];
+  const value = event.type === "keydown";
+
+  if (control) {
+    controls[control] = value;
+  }
+}
+
+// The control map, maps keycodes to control-directions
+const controlMap = {
+  ArrowRight: "right",
+  KeyD: "right", // you can have multiple keys with the same controls
+  ArrowLeft: "left",
+  KeyA: "left",
+  ArrowUp: "up",
+  KeyW: "up",
+  ArrowDown: "down",
+  KeyS: "down",
+  Space: "fire", // But this doesn't work: you can't have
+  Space: "jump", // multiple controls for the same key!
+};
+
+// the controls contain the directions currently "active"
+const controls = {
+  up: false,
+  down: false,
+  left: false,
+  right: false,
+  fire: false,
+  jump: false,
+};
+
+/* CONTROLLER */
 
 function tick() {
   // ignore the deltaTime and accurate frame calculation - just move 1 pixel each frame
   requestAnimationFrame(tick);
 
   // move
-//  movePlayer();
+  movePlayer();
 
   // check collisions
   if (isColliding(player, object)) {
@@ -36,6 +72,20 @@ function tick() {
   // - update geometry
   if (showGeometry) {
     // displayGeometry();
+  }
+}
+
+function movePlayer() {
+  if (controls.left) {
+    player.x--;
+  } else if (controls.right) {
+    player.x++;
+  }
+
+  if (controls.up) {
+    player.y--;
+  } else if (controls.down) {
+    player.y++;
   }
 }
 
