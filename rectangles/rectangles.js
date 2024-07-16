@@ -10,6 +10,7 @@ function start() {
   document.querySelector("#geometry-settings").addEventListener("change", changeShowGeometryDetail);
   
   registerValueChanges();
+  registerColorChanges();
   
   requestAnimationFrame(tick);
 }
@@ -188,6 +189,11 @@ function changeShowGeometry(event) {
 }
 
 function changeShowGeometryDetail(event) {
+  // make sure we only react to checkbox changes
+  if(event.target.type !== "checkbox") {
+    return;
+  }
+
   const detail = event.target.id.split("-")[1];
   const value = event.target.checked;
   
@@ -205,6 +211,17 @@ function changeShowGeometryDetail(event) {
   if(["left", "right", "top", "bottom"].includes(detail)) {
     document.querySelector(`#geometry g.overlaps #overlapObject${detail.charAt(0).toUpperCase() + detail.slice(1)}`).classList.toggle("hidden", !value);
   }
+}
+
+function registerColorChanges() {
+  document.querySelectorAll("input[type=color]").forEach((input) => {
+    input.addEventListener("input", (event) => {
+      const name = event.target.id.split("-")[1];
+      const value = event.target.value;
+      const patternId = `diagonal${name.charAt(0).toUpperCase() + name.slice(1)}`;
+      document.querySelector(`#${patternId} line`).style.stroke=value;   
+    });
+  });
 }
 
 function displayGeometry() {
