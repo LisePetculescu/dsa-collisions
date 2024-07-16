@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rectangles - collision-detection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Rectangles</h1>
+  <h2>collision detection</h2>
+
+  <main>
+    <div id="gamefield">
+      <div id="player"></div>
+      <div id="object"></div>
+      <svg id="geometry" class="hidden">
+ 
+      </svg>
+    </div>
+    <div id="info">
+      <h2>Player</h2>
+      <p>
+        x: <span id="player-x">000</span>, y: <span id="player-y">000</span><br>
+        w: <span id="player-w">000</span>, h: <span id="player-h">000</span>
+      </p>
+
+      <h2>Object</h2>
+      <p>
+        x: <span id="object-x">000</span>, y: <span id="object-y">000</span> -
+        r: <span id="object-r">000</span>
+      </p>
+
+      <hr />
+
+      <h2>Collision?</h2>
+      <p id="collision-status">No collision ...</p>
+      <hr>
+      <label><input type="checkbox" name="" id="show-geometry">Show geometry</label>
+    </div>
+  </main>
+  
+  <script src="rectangles.js"></script>
+</body>
+</html>
