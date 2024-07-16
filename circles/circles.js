@@ -8,6 +8,8 @@ function start() {
 
   document.querySelector("#show-geometry").addEventListener("change", changeShowGeometry);
 
+  registerValueChanges();
+
   requestAnimationFrame(tick);
 }
 
@@ -162,6 +164,29 @@ function displayCollisionInfo() {
     collisionInfo.textContent = "No collision ...";
     collisionInfo.classList.remove("collision");
   }
+}
+
+function registerValueChanges() {
+  document.querySelectorAll("#info input").forEach((input) => {
+    input.addEventListener("input", (event) => {
+      const id = event.target.id;
+      // find the object to manipulate
+      const objectName = event.target.id.split("-")[0];
+      // and the property
+      const propertyName = event.target.id.split("-")[1];
+      // and the value
+      const value = Number(event.target.value);
+      // set the value
+      switch (objectName) {
+        case "player":
+          player[propertyName] = value;
+          break;
+        case "object":
+          object[propertyName] = value;
+          break;
+      }
+    });
+  });
 }
 
 /* GEOMETRY info section */
