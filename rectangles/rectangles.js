@@ -73,7 +73,7 @@ function tick() {
   // - update info
   displayPlayerInfo();
   displayObjectInfo();
-  // displayCollisionInfo();
+  displayCollisionInfo();
 
   // - update geometry
   if (showGeometry) {
@@ -115,10 +115,22 @@ const object = {
 
 function isColliding(rectA, rectB) {
   // determine if the two rectangles are colliding, i.e. overlapping
-  let colliding = false;
-  // TODO: do collision detection!!
+  // e.g. by using the AABB (Axis-Aligned Bounding Box) method
+  
+  // Check if the bottom of rectA is lower than the top of rectB
+  const belowTop = false; // TODO: Make comparison and set value to true or false
 
-  return colliding;
+  // Check if the top of rectA is higher than the bottom of rectB
+  const aboveBottom = false; // TODO: Make comparison and set value to true or false
+
+  // Check if the right side of rectA is to the right of the left side of rectB
+  const afterLeft = false; // TODO: Make comparison and set value to true or false
+
+  // Check if the left side of rectA is to the left of the right side of rectB
+  const beforeRight = false; // TODO: Make comparison and set value to true or false
+  
+  // Only if all four conditions are met, the rectangles are colliding
+  return belowTop && aboveBottom && afterLeft && beforeRight;
 }
 
 /* VIEW */
@@ -155,6 +167,17 @@ function displayObjectInfo() {
   document.querySelector("#object-y").value = object.y;
   document.querySelector("#object-w").value = object.w;
   document.querySelector("#object-h").value = object.h;
+}
+
+function displayCollisionInfo() {
+  const collisionInfo = document.querySelector("#collision-status");
+  if (player.collision) {
+    collisionInfo.textContent = "Collision!!";
+    collisionInfo.classList.add("collision");
+  } else {
+    collisionInfo.textContent = "No collision ...";
+    collisionInfo.classList.remove("collision");
+  }
 }
 
 function registerValueChanges() {
