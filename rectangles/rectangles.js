@@ -8,10 +8,10 @@ function start() {
 
   document.querySelector("#show-geometry").addEventListener("change", changeShowGeometry);
   document.querySelector("#geometry-settings").addEventListener("change", changeShowGeometryDetail);
-  
+
   registerValueChanges();
   registerColorChanges();
-  
+
   requestAnimationFrame(tick);
 }
 
@@ -35,7 +35,7 @@ const controlMap = {
   ArrowDown: "down",
   KeyS: "down",
   Space: "fire", // But this doesn't work: you can't have
-  Space: "jump", // multiple controls for the same key!
+  Space: "jump" // multiple controls for the same key!
 };
 
 // the controls contain the directions currently "active"
@@ -45,7 +45,7 @@ const controls = {
   left: false,
   right: false,
   fire: false,
-  jump: false,
+  jump: false
 };
 
 /* CONTROLLER */
@@ -103,32 +103,32 @@ const player = {
   x: 0,
   y: 0,
   w: 55,
-  h: 70,
+  h: 70
 };
 
 const object = {
   x: 250,
   y: 100,
   w: 190,
-  h: 90,
+  h: 90
 };
 
-function isColliding(rectA, rectB) {
+function isColliding(player, enemy) {
   // determine if the two rectangles are colliding, i.e. overlapping
   // e.g. by using the AABB (Axis-Aligned Bounding Box) method
-  
+
   // Check if the bottom of rectA is lower than the top of rectB
-  const belowTop = false; // TODO: Make comparison and set value to true or false
+  const belowTop = player.y + player.h >= enemy.y; // TODO: Make comparison and set value to true or false
 
   // Check if the top of rectA is higher than the bottom of rectB
-  const aboveBottom = false; // TODO: Make comparison and set value to true or false
+  const aboveBottom = player.y <= enemy.y + enemy.h; // TODO: Make comparison and set value to true or false
 
   // Check if the right side of rectA is to the right of the left side of rectB
-  const afterLeft = false; // TODO: Make comparison and set value to true or false
+  const afterLeft = player.x + player.w >= enemy.x; // TODO: Make comparison and set value to true or false
 
   // Check if the left side of rectA is to the left of the right side of rectB
-  const beforeRight = false; // TODO: Make comparison and set value to true or false
-  
+  const beforeRight = player.x <= enemy.x + enemy.w; // TODO: Make comparison and set value to true or false
+
   // Only if all four conditions are met, the rectangles are colliding
   return belowTop && aboveBottom && afterLeft && beforeRight;
 }
@@ -213,25 +213,25 @@ function changeShowGeometry(event) {
 
 function changeShowGeometryDetail(event) {
   // make sure we only react to checkbox changes
-  if(event.target.type !== "checkbox") {
+  if (event.target.type !== "checkbox") {
     return;
   }
 
   const detail = event.target.id.split("-")[1];
   const value = event.target.checked;
-  
-  if(detail === "lines") {
+
+  if (detail === "lines") {
     document.querySelectorAll("#geometry g.lines").forEach((line) => {
       line.classList.toggle("hidden", !value);
     });
   }
-  if(detail === "overlaps") {
+  if (detail === "overlaps") {
     document.querySelectorAll("#geometry g.overlaps").forEach((line) => {
       line.classList.toggle("hidden", !value);
     });
     document.querySelector("fieldset.overlaps").disabled = !value;
   }
-  if(["left", "right", "top", "bottom"].includes(detail)) {
+  if (["left", "right", "top", "bottom"].includes(detail)) {
     document.querySelector(`#geometry g.overlaps #overlapObject${detail.charAt(0).toUpperCase() + detail.slice(1)}`).classList.toggle("hidden", !value);
   }
 }
@@ -242,7 +242,7 @@ function registerColorChanges() {
       const name = event.target.id.split("-")[1];
       const value = event.target.value;
       const patternId = `diagonal${name.charAt(0).toUpperCase() + name.slice(1)}`;
-      document.querySelector(`#${patternId} line`).style.stroke=value;   
+      document.querySelector(`#${patternId} line`).style.stroke = value;
     });
   });
 }
